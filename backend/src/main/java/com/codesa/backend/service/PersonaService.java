@@ -7,11 +7,12 @@ import com.codesa.backend.repository.PersonaRepository;
 
 import lombok.extern.slf4j.Slf4j;
 
+import org.springframework.data.domain.Page;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import org.springframework.data.domain.Pageable;
 
 @Service
 @Slf4j
@@ -23,12 +24,10 @@ public class PersonaService {
     @Autowired
     private ModelMapper modelMapper;
 
-    public List<PersonaDTO> getAll() {
+    public Page<PersonaDTO> getAll(Pageable pageable) {
         log.info("Obteniendo todas las personas");
-        return personaRepository.findAll()
-                .stream()
-                .map(persona -> modelMapper.map(persona, PersonaDTO.class))
-                .toList();
+        return personaRepository.findAll(pageable)
+                .map(persona -> modelMapper.map(persona, PersonaDTO.class));
     }
 
     public PersonaDTO getById(Long id) {
@@ -36,6 +35,12 @@ public class PersonaService {
         Persona persona = personaRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Persona no encontrada"));
         return modelMapper.map(persona, PersonaDTO.class);
+    }
+
+    public Persona findByEmail(String email) {
+        log.info("Buscando persona por email: {}", email);
+        return personaRepository.findByEmail(email)
+                .orElseThrow(() -> new ResourceNotFoundException("Email no registrado"));
     }
 
     public PersonaDTO create(PersonaDTO dto) {
