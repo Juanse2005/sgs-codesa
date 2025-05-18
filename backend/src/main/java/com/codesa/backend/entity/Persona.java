@@ -33,6 +33,9 @@ public class Persona {
     @Email
     @Column(unique = true)
     private String email;
+    
+    @NotBlank
+    private String password;
 
     @NotBlank
     @Pattern(regexp = "\\d{10}")
