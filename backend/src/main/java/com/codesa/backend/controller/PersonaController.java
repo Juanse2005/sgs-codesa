@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.codesa.backend.dto.PersonaDTO;
 import com.codesa.backend.service.PersonaService;
+
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -25,6 +27,8 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/personas")
 @RequiredArgsConstructor
 @Slf4j
+@Tag(name = "Personas")
+
 public class PersonaController {
 
     private final PersonaService personaService;
