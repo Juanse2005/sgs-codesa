@@ -9,7 +9,7 @@ import com.codesa.backend.dto.LoginRequest;
 import com.codesa.backend.dto.RegisterRequest;
 import com.codesa.backend.entity.Persona;
 import com.codesa.backend.repository.PersonaRepository;
-import com.codesa.backend.config.JwtUtil;
+import com.codesa.backend.security.JwtUtil;
 
 import lombok.extern.slf4j.Slf4j;
 

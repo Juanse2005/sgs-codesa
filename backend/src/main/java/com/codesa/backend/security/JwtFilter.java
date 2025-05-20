@@ -1,4 +1,4 @@
-package com.codesa.backend.config;
+package com.codesa.backend.security;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

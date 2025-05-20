@@ -1,4 +1,4 @@
-package com.codesa.backend.config;
+package com.codesa.backend.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

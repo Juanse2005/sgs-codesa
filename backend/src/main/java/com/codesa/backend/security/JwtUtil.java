@@ -1,4 +1,4 @@
-package com.codesa.backend.config;
+package com.codesa.backend.security;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
