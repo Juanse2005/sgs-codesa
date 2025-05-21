@@ -51,8 +51,7 @@ public class PersonaService {
         }
 
         Persona persona = modelMapper.map(dto, Persona.class);
-        Persona guardada = personaRepository.save(persona);
-        return modelMapper.map(guardada, PersonaDTO.class);
+        return modelMapper.map(personaRepository.save(persona), PersonaDTO.class);
     }
 
     public PersonaDTO update(Long id, PersonaDTO dto) {
