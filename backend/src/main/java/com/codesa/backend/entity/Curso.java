@@ -12,7 +12,7 @@ import lombok.Data;
 public class Curso {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id_persona;
+    private Long id_curso;
 
     @NotBlank
     private String nombre;
