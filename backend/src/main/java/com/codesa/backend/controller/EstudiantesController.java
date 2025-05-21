@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.codesa.backend.dto.CreateEstudianteDTO;
 import com.codesa.backend.dto.EstudianteDTO;
 import com.codesa.backend.entity.Estudiante;
 import com.codesa.backend.service.EstudianteService;
@@ -31,7 +32,7 @@ import lombok.extern.slf4j.Slf4j;
 @Tag(name = "Estudiantes")
 
 public class EstudiantesController {
-    
+
     private final EstudianteService estudianteService;
 
     @GetMapping
@@ -52,13 +53,16 @@ public class EstudiantesController {
     }
 
     @PostMapping
-    public ResponseEntity<EstudianteDTO> crear(@Valid @RequestBody EstudianteDTO EstudianteDTO) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(estudianteService.create(EstudianteDTO));
+    public ResponseEntity<EstudianteDTO> crear(
+            @Valid @RequestBody CreateEstudianteDTO input) {
+        EstudianteDTO salida = estudianteService.create(input);
+        return ResponseEntity.status(HttpStatus.CREATED).body(salida);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<EstudianteDTO> actualizar(@PathVariable Long id, @Valid @RequestBody EstudianteDTO EstudianteDTO) {
-        return ResponseEntity.ok(estudianteService.update(id, EstudianteDTO));
+    public ResponseEntity<EstudianteDTO> actualizar(@PathVariable Long id,
+            @Valid @RequestBody CreateEstudianteDTO input) {
+        return ResponseEntity.ok(estudianteService.update(id, input));
     }
 
     @DeleteMapping("/{id}")
