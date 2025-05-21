@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { MenuItem } from 'primeng/api';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-layout',
@@ -19,7 +20,9 @@ export class LayoutComponent {
       { label: 'Administrativos', icon: 'pi pi-users', routerLink: ['/administrativos'] },
       { label: 'Cursos', icon: 'pi pi-users', routerLink: ['/cursos'] },
       { label: 'Inscricpiones', icon: 'pi pi-users', routerLink: ['/inscripciones'] },
-      { label: 'Salir', icon: 'pi pi-sign-out', routerLink: ['/login'] },
+      {
+        label: 'Salir', icon: 'pi pi-sign-out', command: () => this.logOut()
+      },
     ];
   }
 
@@ -30,13 +33,17 @@ export class LayoutComponent {
     this.sidebarCollapsed = !this.sidebarCollapsed;
   }
 
-  constructor() {
+  constructor(private authService: AuthService) {
     window.addEventListener('resize', () => {
       this.isLargeScreen = window.innerWidth > 768;
       if (this.isLargeScreen) {
         this.sidebarCollapsed = false;
       }
     });
+  }
+
+  logOut() {
+    this.authService.logout();
   }
 
 }

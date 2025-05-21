@@ -16,6 +16,7 @@ import { DialogModule } from 'primeng/dialog';
 import { ToastModule } from 'primeng/toast';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { ChartModule } from 'primeng/chart';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 
 
 @NgModule({
@@ -36,7 +37,8 @@ import { ChartModule } from 'primeng/chart';
         DialogModule,
         ToastModule,
         InputTextareaModule,
-        ChartModule
+        ChartModule,
+        ConfirmDialogModule,
     ],
     exports: [
         ButtonModule,
@@ -53,7 +55,8 @@ import { ChartModule } from 'primeng/chart';
         ToastModule,
         DropdownModule,
         InputTextareaModule,
-        ChartModule
+        ChartModule,
+        ConfirmDialogModule
     ],
 })
 

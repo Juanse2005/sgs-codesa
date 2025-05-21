@@ -8,6 +8,8 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AuthInterceptor } from './shared/interceptors/auth-interceptor';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
+import { ConfirmationService } from 'primeng/api';
+
 
 @NgModule({
   declarations: [
@@ -22,6 +24,7 @@ import { ToastModule } from 'primeng/toast';
   ],
   providers: [
     MessageService,
+    ConfirmationService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,

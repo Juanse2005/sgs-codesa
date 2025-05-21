@@ -4,6 +4,7 @@ import { APIENDPOINT } from '../../config/configuration';
 import { Personas } from '../../shared/models/personas/personas';
 import { Table } from 'primeng/table';
 import { MessageService } from 'primeng/api';
+import { ConfirmationService } from 'primeng/api';
 
 @Component({
   selector: 'app-personas',
@@ -27,7 +28,7 @@ export class PersonasComponent {
 
   email: string = '';
 
-  constructor(private readonly personasService: PersonasService, private messageService: MessageService) { }
+  constructor(private readonly personasService: PersonasService, private messageService: MessageService, private confirmationService: ConfirmationService) { }
 
   ngOnInit(): void {
     this.getAllPersonas();
@@ -120,7 +121,14 @@ export class PersonasComponent {
       detail: detail,
     });
   }
-
-
+  confirmarEliminacion(id_persona: number) {
+    this.confirmationService.confirm({
+      message: '¿Estás seguro de que deseas eliminar este curso?',
+      acceptLabel: 'Sí',
+      rejectLabel: 'No',
+      accept: () => {
+        this.deletePersonas(id_persona);
+      }
+    });
+  }
 }
-

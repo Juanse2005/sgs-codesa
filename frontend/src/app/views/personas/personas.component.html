@@ -1,5 +1,5 @@
 <p-card header="Personas">
-    <p-table #dt [value]="personas"  dataKey="id_persona" [rows]="10" [paginator]="true" [responsiveLayout]="'scroll'"
+    <p-table #dt [value]="personas" dataKey="id_persona" [rows]="10" [paginator]="true" [responsiveLayout]="'scroll'"
         [rowsPerPageOptions]="[10, 25, 50]" [loading]="loading" [globalFilterFields]="['nombre', 'apellido', 'email']">
 
         <ng-template pTemplate="caption">
@@ -75,7 +75,7 @@
                 <td>
                     <p-button (onClick)="selectPersonas(persona.id_persona)" icon="pi pi-pencil" severity="warning"
                         class="mr-2" />
-                    <p-button (onClick)="deletePersonas(persona.id_persona)" icon="pi pi-times" severity="danger" />
+                    <p-button (onClick)="confirmarEliminacion(persona.id_persona)" icon="pi pi-times" severity="danger" />
                 </td>
 
             </tr>
@@ -248,6 +248,7 @@
             </div>
         </p-dialog>
     </form>
+    <p-confirmDialog header="Confirmar" icon="pi pi-exclamation-triangle"></p-confirmDialog>
 
 
 </p-card>
