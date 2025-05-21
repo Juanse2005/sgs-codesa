@@ -1,7 +1,7 @@
 // cursos.component.ts
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Table } from 'primeng/table';
-import { MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { CursoService } from '../../shared/services/cursos/curso.service';
 import { Curso } from '../../shared/models/curso/curso';
 import { APIENDPOINT } from '../../config/configuration';
@@ -35,8 +35,9 @@ export class CursosComponent implements OnInit {
   constructor(
     private readonly cursoService: CursoService,
     private readonly personaService: PersonasService,
-    private messageService: MessageService
-  ) {}
+    private messageService: MessageService,
+    private confirmationService: ConfirmationService
+  ) { }
 
   ngOnInit(): void {
     this.getAllCursos();
@@ -162,5 +163,15 @@ export class CursosComponent implements OnInit {
   /** Toast de error */
   private ErrorToast(detail: string) {
     this.messageService.add({ severity: 'error', summary: 'Error', detail });
+  }
+  confirmDelete(id_curso: number) {
+    this.confirmationService.confirm({
+      message: '¿Estás seguro de que deseas eliminar este curso?',
+      acceptLabel: 'Sí',
+      rejectLabel: 'No',
+      accept: () => {
+        this.deleteCurso(id_curso);
+      }
+    });
   }
 }

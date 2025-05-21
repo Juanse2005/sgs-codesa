@@ -45,7 +45,7 @@
         <td>
           <p-button icon="pi pi-pencil" severity="warning" class="mr-2"
             (onClick)="selectCurso(curso.id_curso)"></p-button>
-          <p-button icon="pi pi-times" severity="danger" (click)="deleteCurso(curso.id_curso)"></p-button>
+          <p-button icon="pi pi-times" severity="danger" (click)="confirmDelete(curso.id_curso)"></p-button>
         </td>
       </tr>
     </ng-template>
@@ -180,5 +180,6 @@
       </div>
     </p-dialog>
   </form>
+    <p-confirmDialog header="Confirmar" icon="pi pi-exclamation-triangle"></p-confirmDialog>
 
 </p-card>

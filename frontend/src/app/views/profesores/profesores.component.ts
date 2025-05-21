@@ -157,9 +157,9 @@ export class ProfesoresComponent {
       detail: detail,
     });
   }
-  confirmarEliminacion(id_persona: number) {
+ confirmDelete(id_persona: number) {
     this.confirmationService.confirm({
-      message: '¿Estás seguro de que deseas eliminar este curso?',
+      message: '¿Estás seguro de que deseas eliminar este usuario?',
       acceptLabel: 'Sí',
       rejectLabel: 'No',
       accept: () => {

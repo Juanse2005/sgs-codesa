@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { Estudiante } from '../../shared/models/estudiante/estudiante';
 import { Table } from 'primeng/table';
-import { MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { EstudianteService } from '../../shared/services/estudiante/estudiante.service';
 import { APIENDPOINT } from '../../config/configuration';
 import { Personas } from '../../shared/models/personas/personas';
@@ -14,7 +14,7 @@ import { Personas } from '../../shared/models/personas/personas';
 export class EstudiantesComponent {
   @ViewChild('dt') dt!: Table;
 
-  
+
   estudianteSeleccionado: string = '';
 
   personas: Personas[] = [];
@@ -38,7 +38,7 @@ export class EstudiantesComponent {
 
   email: string = '';
 
-  constructor(private readonly estudianteService: EstudianteService, private messageService: MessageService) { }
+  constructor(private readonly estudianteService: EstudianteService, private messageService: MessageService, private confirmationService: ConfirmationService) { }
 
   ngOnInit(): void {
     this.getAllpersonas();
@@ -119,7 +119,7 @@ export class EstudiantesComponent {
   }
 
   postestudiante() {
-      console.log(this.estudiante_form); 
+    console.log(this.estudiante_form);
 
     this.estudianteService.post(APIENDPOINT.Estudiantes, this.estudiante_form).subscribe({
       next: (res) => {
@@ -161,5 +161,15 @@ export class EstudiantesComponent {
     });
   }
 
+  confirmDelete(id_persona: number) {
+    this.confirmationService.confirm({
+      message: '¿Estás seguro de que deseas eliminar este usuario?',
+      acceptLabel: 'Sí',
+      rejectLabel: 'No',
+      accept: () => {
+        this.deleteestudiante(id_persona);
+      }
+    });
+  }
 
 }

@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { Table } from 'primeng/table';
-import { MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { APIENDPOINT } from '../../config/configuration';
 
 import { Inscripcion } from '../../shared/models/inscripcion/inscripcion';
@@ -35,7 +35,8 @@ export class InscripcionesComponent {
     private inscripcionService: InscripcionService,
     private estudianteService: EstudianteService,
     private cursoService: CursoService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private confirmationService: ConfirmationService
   ) { }
 
   ngOnInit(): void {
@@ -146,6 +147,16 @@ export class InscripcionesComponent {
       severity: 'error',
       summary: 'Error',
       detail
+    });
+  }
+  confirmDelete(id_inscripcion: number) {
+    this.confirmationService.confirm({
+      message: '¿Estás seguro de que deseas eliminar esta inscripción?',
+      acceptLabel: 'Sí',
+      rejectLabel: 'No',
+      accept: () => {
+        this.deleteInscripcion(id_inscripcion);
+      }
     });
   }
 }

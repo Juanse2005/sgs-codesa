@@ -38,7 +38,7 @@
                     <p-button icon="pi pi-pencil" severity="warning" class="mr-2"
                         (onClick)="putInscripcion(inscripcion)"></p-button>
                     <p-button icon="pi pi-times" severity="danger"
-                        (onClick)="deleteInscripcion(inscripcion.id_inscripcion)"></p-button>
+                        (onClick)="confirmDelete(inscripcion.id_inscripcion)"></p-button>
                 </td>
             </tr>
         </ng-template>
@@ -91,8 +91,8 @@
         </div>
 
         <div class="flex justify-content-end mt-4">
-            <p-button label="Cancelar" icon="pi pi-times" (onClick)="visible_put = false"
-                class="p-button-text mr-2"  severity="secondary"></p-button>
+            <p-button label="Cancelar" icon="pi pi-times" (onClick)="visible_put = false" class="p-button-text mr-2"
+                severity="secondary"></p-button>
             <p-button label="Guardar" icon="pi pi-check" type="submit"></p-button>
         </div>
     </form>
@@ -137,9 +137,10 @@
         </div>
 
         <div class="flex justify-content-end mt-4">
-            <p-button label="Cancelar" icon="pi pi-times" (onClick)="visible_post = false"
-                class="p-button-text mr-2"  severity="secondary"></p-button>
+            <p-button label="Cancelar" icon="pi pi-times" (onClick)="visible_post = false" class="p-button-text mr-2"
+                severity="secondary"></p-button>
             <p-button label="Crear" icon="pi pi-check" type="submit"></p-button>
         </div>
     </form>
 </p-dialog>
+<p-confirmDialog header="Confirmar" icon="pi pi-exclamation-triangle"></p-confirmDialog>
