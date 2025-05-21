@@ -41,6 +41,8 @@ public class EstudianteService {
     }
 
     public EstudianteDTO create(CreateEstudianteDTO input) {
+        log.info("Creando estudiante");
+
         Persona persona = personaRepository.findById(input.getId_persona())
                 .orElseThrow(() -> new RuntimeException("Persona no encontrada"));
 

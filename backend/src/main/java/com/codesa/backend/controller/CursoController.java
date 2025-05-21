@@ -15,9 +15,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.codesa.backend.dto.CreateCursoDTO;
 import com.codesa.backend.dto.CursoDTO;
+import com.codesa.backend.dto.EstudianteDTO;
 import com.codesa.backend.service.CursoService;
-
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -31,7 +32,7 @@ import lombok.extern.slf4j.Slf4j;
 @Tag(name = "Cursos")
 
 public class CursoController {
-    
+
     private final CursoService cursoService;
 
     @GetMapping
@@ -52,13 +53,16 @@ public class CursoController {
     }
 
     @PostMapping
-    public ResponseEntity<CursoDTO> crear(@Valid @RequestBody CursoDTO cursoDTO) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(cursoService.create(cursoDTO));
+    public ResponseEntity<CursoDTO> crear(
+        @Valid @RequestBody CreateCursoDTO input) {
+        CursoDTO salida = cursoService.create(input);
+        return ResponseEntity.status(HttpStatus.CREATED).body(salida);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<CursoDTO> actualizar(@PathVariable Long id, @Valid @RequestBody CursoDTO cursoDTO) {
-        return ResponseEntity.ok(cursoService.update(id, cursoDTO));
+    public ResponseEntity<CursoDTO> actualizar(@PathVariable Long id, 
+    @Valid @RequestBody CreateCursoDTO input) {
+        return ResponseEntity.ok(cursoService.update(id, input));
     }
 
     @DeleteMapping("/{id}")

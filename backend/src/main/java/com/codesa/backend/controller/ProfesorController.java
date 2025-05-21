@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.codesa.backend.dto.CreateProfesorDTO;
 import com.codesa.backend.dto.ProfesorDTO;
 import com.codesa.backend.service.ProfesorService;
 
@@ -52,13 +53,16 @@ public class ProfesorController {
     }
 
     @PostMapping
-    public ResponseEntity<ProfesorDTO> crear(@Valid @RequestBody ProfesorDTO profesorDTO) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(profesorService.create(profesorDTO));
+    public ResponseEntity<ProfesorDTO> crear(
+        @Valid @RequestBody CreateProfesorDTO input) {
+            ProfesorDTO salida = profesorService.create(input);
+        return ResponseEntity.status(HttpStatus.CREATED).body(salida);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ProfesorDTO> actualizar(@PathVariable Long id, @Valid @RequestBody ProfesorDTO profesorDTO) {
-        return ResponseEntity.ok(profesorService.update(id, profesorDTO));
+    public ResponseEntity<ProfesorDTO> actualizar(@PathVariable Long id, 
+    @Valid @RequestBody CreateProfesorDTO input) {
+        return ResponseEntity.ok(profesorService.update(id, input));
     }
 
     @DeleteMapping("/{id}")

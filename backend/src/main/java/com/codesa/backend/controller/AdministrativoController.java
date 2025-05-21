@@ -16,8 +16,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.codesa.backend.dto.AdministrativoDTO;
+import com.codesa.backend.dto.CreateAdministrativoDTO;
+import com.codesa.backend.dto.EstudianteDTO;
 import com.codesa.backend.service.AdministrativoService;
-
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -31,7 +32,7 @@ import lombok.extern.slf4j.Slf4j;
 @Tag(name = "Administrativos")
 
 public class AdministrativoController {
-    
+
     private final AdministrativoService administrativoService;
 
     @GetMapping
@@ -52,13 +53,17 @@ public class AdministrativoController {
     }
 
     @PostMapping
-    public ResponseEntity<AdministrativoDTO> crear(@Valid @RequestBody AdministrativoDTO administrativoDTO) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(administrativoService.create(administrativoDTO));
+    public ResponseEntity<AdministrativoDTO> crear(
+            @Valid @RequestBody CreateAdministrativoDTO input) {
+        AdministrativoDTO salida = administrativoService.create(input);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(salida);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<AdministrativoDTO> actualizar(@PathVariable Long id, @Valid @RequestBody AdministrativoDTO administrativoDTO) {
-        return ResponseEntity.ok(administrativoService.update(id, administrativoDTO));
+    public ResponseEntity<AdministrativoDTO> actualizar(@PathVariable Long id,
+            @Valid @RequestBody CreateAdministrativoDTO input) {
+        return ResponseEntity.ok(administrativoService.update(id, input));
     }
 
     @DeleteMapping("/{id}")

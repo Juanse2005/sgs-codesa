@@ -15,15 +15,15 @@ public class Curso {
     private Long id_curso;
 
     @NotBlank
-    private String nombre;
+    private String nombre_curso;
 
+    @NotBlank
     private String descripcion;
 
     @Min(1)
-    private int creditos;
+    private Integer creditos;
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "id_profesor")
+    @JoinColumn(name = "id_profesor", referencedColumnName = "id_persona")
     private Profesor profesor;
 }
-

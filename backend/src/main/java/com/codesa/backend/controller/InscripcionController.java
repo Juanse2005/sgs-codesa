@@ -15,9 +15,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.codesa.backend.dto.CreateInscripcionDTO;
+import com.codesa.backend.dto.EstudianteDTO;
 import com.codesa.backend.dto.InscripcionDTO;
 import com.codesa.backend.service.InscripcionService;
-
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -31,7 +32,7 @@ import lombok.extern.slf4j.Slf4j;
 @Tag(name = "Inscripciones")
 
 public class InscripcionController {
-    
+
     private final InscripcionService inscripcionService;
 
     @GetMapping
@@ -52,13 +53,16 @@ public class InscripcionController {
     }
 
     @PostMapping
-    public ResponseEntity<InscripcionDTO> crear(@Valid @RequestBody InscripcionDTO inscripcionDTO) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(inscripcionService.create(inscripcionDTO));
+    public ResponseEntity<InscripcionDTO> crear(
+            @RequestBody CreateInscripcionDTO input) {
+        InscripcionDTO salida = inscripcionService.create(input);
+        return ResponseEntity.status(HttpStatus.CREATED).body(salida);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<InscripcionDTO> actualizar(@PathVariable Long id, @Valid @RequestBody InscripcionDTO inscripcionDTO) {
-        return ResponseEntity.ok(inscripcionService.update(id, inscripcionDTO));
+    public ResponseEntity<InscripcionDTO> actualizar(@PathVariable Long id,
+            @Valid @RequestBody CreateInscripcionDTO input) {
+        return ResponseEntity.ok(inscripcionService.update(id, input));
     }
 
     @DeleteMapping("/{id}")

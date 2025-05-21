@@ -1,13 +1,21 @@
 package com.codesa.backend.service;
 
+import com.codesa.backend.dto.CreateProfesorDTO;
+import com.codesa.backend.dto.EstudianteDTO;
 import com.codesa.backend.dto.ProfesorDTO;
+import com.codesa.backend.entity.Estudiante;
+import com.codesa.backend.entity.Persona;
 import com.codesa.backend.entity.Profesor;
 import com.codesa.backend.exception.ResourceNotFoundException;
+import com.codesa.backend.repository.PersonaRepository;
 import com.codesa.backend.repository.ProfesorRepository;
 
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.data.domain.Page;
+
+import java.time.LocalDate;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,36 +29,54 @@ public class ProfesorService {
     private ProfesorRepository profesorRepository;
 
     @Autowired
+    private PersonaRepository personaRepository;
+
+    @Autowired
     private ModelMapper modelMapper;
 
     public Page<ProfesorDTO> getAll(Pageable pageable) {
         log.info("Obteniendo todas las personas");
         return profesorRepository.findAll(pageable)
-                .map(persona -> modelMapper.map(persona, ProfesorDTO.class));
+                .map(this::toDTO);
     }
 
     public ProfesorDTO getById(Long id) {
         log.info("Obteniendo persona con ID {}", id);
         Profesor profesor = profesorRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("profesor no encontrada"));
-        return modelMapper.map(profesor, ProfesorDTO.class);
+        return toDTO(profesor);
     }
 
-    public ProfesorDTO create(ProfesorDTO dto) {
+    public ProfesorDTO create(CreateProfesorDTO input) {
         log.info("Creando profesor");
 
-        Profesor profesor = modelMapper.map(dto, Profesor.class);
-        return modelMapper.map(profesorRepository.save(profesor), ProfesorDTO.class);
+        Persona persona = personaRepository.findById(input.getId_persona())
+                .orElseThrow(() -> new RuntimeException("Persona no encontrada"));
+
+        Profesor est = new Profesor();
+        est.setPersona(persona);
+        est.setEspecialidad(input.getEspecialidad());
+        est.setFecha_contratacion(input.getFecha_contratacion());
+        Profesor saved = profesorRepository.save(est);
+        return toDTO(saved);
+
     }
 
-    public ProfesorDTO update(Long id, ProfesorDTO dto) {
+    public ProfesorDTO update(Long id, CreateProfesorDTO input) {
         log.info("Actualizando profesor con ID {}", id);
 
-        Profesor profesor = profesorRepository.findById(id)
+        Profesor est = profesorRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("profesor no encontrada"));
+        
+                Persona persona = personaRepository.findById(input.getId_persona())
+                .orElseThrow(() -> new RuntimeException("Persona no encontrada"));
 
-        modelMapper.map(dto, profesor);
-        return modelMapper.map(profesorRepository.save(profesor), ProfesorDTO.class);
+        est.setPersona(persona);
+        est.setEspecialidad(input.getEspecialidad());
+        est.setFecha_contratacion(input.getFecha_contratacion());
+        Profesor updated = profesorRepository.save(est);
+        return toDTO(updated);
+
     }
 
     public void delete(Long id) {
@@ -60,4 +86,19 @@ public class ProfesorService {
                 .orElseThrow(() -> new ResourceNotFoundException("profesor no encontrada"));
         profesorRepository.delete(profesor);
     }
+
+    private ProfesorDTO toDTO(Profesor est) {
+        Persona p = est.getPersona();
+        ProfesorDTO dto = new ProfesorDTO();
+        dto.setId_persona(p.getId_persona());
+        dto.setNombre(p.getNombre());
+        dto.setApellido(p.getApellido());
+        dto.setEmail(p.getEmail());
+        dto.setTelefono(p.getTelefono());
+        dto.setFecha_nacimiento(p.getFecha_nacimiento());
+        dto.setEspecialidad(est.getEspecialidad());
+        dto.setFecha_contratacion(est.getFecha_contratacion());
+        return dto;
+    }
+
 }

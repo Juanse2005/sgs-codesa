@@ -5,8 +5,13 @@ import java.time.LocalDate;
 import lombok.Data;
 
 @Data
-public class ProfesorDTO extends PersonaDTO{
-    
-    private String especialidad;
+public class ProfesorDTO {
+    private Long id_persona;
+    private String nombre;
+    private String apellido;
+    private String email;
+    private String telefono;
+    private LocalDate fecha_nacimiento;
     private LocalDate fecha_contratacion;
+    private String especialidad;
 }

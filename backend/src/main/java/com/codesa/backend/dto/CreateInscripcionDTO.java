@@ -2,15 +2,17 @@ package com.codesa.backend.dto;
 
 import java.time.LocalDate;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 @Data
-public class InscripcionDTO {
-    private Long id_inscripcion;
+public class CreateInscripcionDTO {
+    @NotNull
     private Long id_estudiante;
+    
+    @NotNull
     private Long id_curso;
-    private String nombre_estudiante;
-    private String nombre_curso;
+
+     @NotNull
     private LocalDate fecha_inscripcion;
 }
-

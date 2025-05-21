@@ -5,13 +5,13 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 @Data
-public class CreateEstudianteDTO {
+public class CreateAdministrativoDTO {
     @NotNull
     private Long id_persona;
 
     @NotBlank
-    private String numero_matricula;
+    private String cargo;
 
     @NotBlank
-    private String grado;
+    private String departamento;
 }

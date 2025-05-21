@@ -16,11 +16,11 @@ public class Inscripcion {
     private Long id_inscripcion;
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "id_estudiante")
+    @JoinColumn(name = "id_estudiante", referencedColumnName = "id_persona")
     private Estudiante estudiante;
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "id_curso")
+    @JoinColumn(name = "id_curso", referencedColumnName = "id_curso")
     private Curso curso;
 
     @NotNull
