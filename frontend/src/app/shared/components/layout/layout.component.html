@@ -1,0 +1,19 @@
+<div class="app-layout">
+  <header class="topbar">
+    <div class="topbar-logo">
+      <img src="assets/icon.png" alt="Logo" />
+      <span class="system-title">Sistema de Gestión Escolar</span>
+    </div>
+    <button class="menu-toggle" (click)="toggleSidebar()">☰</button>
+  </header>
+
+  <div class="main-layout" [class.sidebar-collapsed]="sidebarCollapsed">
+    <aside class="sidebar" *ngIf="!sidebarCollapsed || isLargeScreen">
+      <p-panelMenu [model]="items"></p-panelMenu>
+    </aside>
+
+    <main class="main-content">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+</div>

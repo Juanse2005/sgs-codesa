@@ -1,7 +1,19 @@
 export const APIENDPOINT = {
-    //Admins
-    getAllAdmins: 'consultarAdmin',
-    updateAdmin: 'actualizarAdmin',
-    createAdmin: 'registrarAdmin',
-    deleteAdmin: 'eliminarAdmin',
+    //Personas
+    Personas: 'personas',
+
+    //Estudiantes
+    Estudiantes: 'estudiantes',
+
+    //Profesores
+    Profesor: 'profesor',
+
+    //Administrativo
+    Administrativo: 'administrativo',
+
+    //Cursos
+    Curso: 'curso',
+    
+    //Inscripciones
+    Inscripciones: 'inscripcion',
 }

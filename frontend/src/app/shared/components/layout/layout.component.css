@@ -1,0 +1,81 @@
+.app-layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #f9f9f9;
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  background-color: #ffffff;
+  height: 70px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 0 1.5rem;
+}
+
+.topbar-logo {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.topbar-logo img {
+  height: 50px;
+}
+
+.system-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #00acc9;
+}
+
+.main-layout {
+  display: flex;
+  flex: 1;
+}
+
+.sidebar {
+  width: 250px;
+  background-color: #f4f6f8;
+  padding: 1rem;
+  box-shadow: 2px 0 6px rgba(0, 0, 0, 0.05);
+}
+
+.main-content {
+  flex: 1;
+  padding: 2rem;
+  overflow-y: auto;
+  background-color: #ffffff;
+}
+
+.menu-toggle {
+  display: none;
+  font-size: 1.8rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-left: auto;
+  color: #00acc9;
+}
+
+/* Mostrar toggle en pantallas pequeñas */
+@media (max-width: 768px) {
+  .menu-toggle {
+    display: block;
+  }
+
+  .main-layout {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    box-shadow: none;
+  }
+
+  .main-content {
+    padding: 1rem;
+  }
+}
+

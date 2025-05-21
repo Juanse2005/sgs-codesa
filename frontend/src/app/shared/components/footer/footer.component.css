@@ -1,0 +1,14 @@
+.footer {
+  background-color: rgb(134, 134, 134);
+  color: white;
+  text-align: center;
+  padding: 1rem 0;
+  margin-top: auto;
+  font-size: 0.9rem;
+}
+
+.footer-content {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}

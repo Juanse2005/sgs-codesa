@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { PersonasRoutingModule } from './personas-routing.module';
 import { PersonasComponent } from './personas.component';
+import { ShareModules } from '../../shared/share.modules';
 
 
 @NgModule({
@@ -11,7 +12,8 @@ import { PersonasComponent } from './personas.component';
   ],
   imports: [
     CommonModule,
-    PersonasRoutingModule
+    PersonasRoutingModule,
+    ShareModules
   ]
 })
 export class PersonasModule { }

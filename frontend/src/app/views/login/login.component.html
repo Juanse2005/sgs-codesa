@@ -1,2 +1,25 @@
 <app-nav></app-nav>
-<p>login works!</p>
+
+<div class="login-container">
+  <p-card header="Iniciar Sesión" class="login-card">
+    <form #form="ngForm" (ngSubmit)="login()">
+      <div class="p-field p-fluid mb-4">
+        <p-floatLabel>
+          <input pInputText id="email" name="email" [(ngModel)]="email" required />
+          <label for="email">Email</label>
+        </p-floatLabel>
+      </div>
+
+      <div class="p-field p-fluid p-mt-3 mb-3">
+        <p-floatLabel>
+          <input pInputText type="password" id="password" name="password" [(ngModel)]="password" required />
+          <label for="password">Contraseña</label>
+        </p-floatLabel>
+      </div>
+
+      <div class="flex mb-3 align-items-center justify-content-center">
+        <button pButton type="submit" label="Iniciar sesión" class="p-button-primary p-px-5"></button>
+      </div>
+    </form>
+  </p-card>
+</div>

@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 
 import { LoginRoutingModule } from './login-routing.module';
 import { LoginComponent } from './login.component';
-import { share } from 'rxjs';
 import { ShareModules } from '../../shared/share.modules';
 import { NavComponent } from '../../shared/components/nav/nav.component';
 
@@ -11,12 +10,13 @@ import { NavComponent } from '../../shared/components/nav/nav.component';
 @NgModule({
   declarations: [
     LoginComponent,
-    
+    NavComponent,
   ],
   imports: [
     CommonModule,
     LoginRoutingModule,
-    ShareModules
+    ShareModules,
+    
   ]
 })
 export class LoginModule { }

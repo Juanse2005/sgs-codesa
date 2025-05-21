@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { AdministrativosRoutingModule } from './administrativos-routing.module';
 import { AdministrativosComponent } from './administrativos.component';
+import { ShareModules } from '../../shared/share.modules';
 
 
 @NgModule({
@@ -11,7 +12,8 @@ import { AdministrativosComponent } from './administrativos.component';
   ],
   imports: [
     CommonModule,
-    AdministrativosRoutingModule
+    AdministrativosRoutingModule,
+    ShareModules
   ]
 })
 export class AdministrativosModule { }

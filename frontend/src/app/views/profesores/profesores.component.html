@@ -1,1 +1,253 @@
-<p>profesores works!</p>
+<p-card header="Profesores">
+    <p-table #dt [value]="profesor" dataKey="id_profesor" [rows]="10" [paginator]="true" [responsiveLayout]="'scroll'"
+        [rowsPerPageOptions]="[10, 25, 50]" [loading]="loading" [globalFilterFields]="['nombre', 'apellido', 'email']">
+
+        <ng-template pTemplate="caption">
+            <div class="flex flex-wrap gap-2 justify-content-between align-items-center">
+
+                <p-button label="Nuevo" icon="pi pi-plus" class="mr-2" (onClick)="visible_post = true" />
+
+                <p-button label="Limpiar" [outlined]="true" icon="pi pi-filter-slash" (onClick)="clear(dt)" />
+                <span class="p-input-icon-left ml-auto">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text" [(ngModel)]="searchValue" (input)="filtrarGlobal($event)"
+                        placeholder="Buscar..." />
+                </span>
+            </div>
+        </ng-template>
+
+        <ng-template pTemplate="header">
+            <tr>
+                <th>
+                    ID
+                    <p-columnFilter type="numeric" field="id_profesor" display="menu" />
+                </th>
+                <th>
+                    Nombre
+                    <p-columnFilter type="text" field="nombre" display="menu" />
+                </th>
+                <th>
+                    Apellido
+                    <p-columnFilter type="text" field="apellido" display="menu" />
+                </th>
+                <th>
+                    Fecha de nacimiento
+                    <p-columnFilter type="date" field="fecha_nacimiento" display="menu" />
+                </th>
+                <th>
+                    Telefono
+                    <p-columnFilter type="numeric" field="telefono" display="menu" />
+                </th>
+                <th>
+                    Especialidad <p-columnFilter type="text" field="email" display="menu" />
+                </th>
+                <th>
+                    Fecha de contratacion
+                    <p-columnFilter type="numeric" field="grado" display="menu" />
+
+                <th>
+                    Acciones
+                    <p-columnFilter field="email" display="menu" />
+                </th>
+
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-profesor>
+            <tr>
+                <td>{{ profesor.id_persona }}</td>
+                <td>{{ profesor.nombre }}</td>
+                <td>{{ profesor.apellido }}</td>
+                <td>{{ profesor.fecha_nacimiento | date: 'dd/MM/yyyy' }}</td>
+                <td>{{ profesor.telefono }}</td>
+                <td>
+                    {{ profesor.especialidad}}
+                </td>
+                <td>
+                    {{ profesor.fecha_contratacion | date: 'dd/MM/yyyy' }}
+                <td>
+                    <p-button (onClick)="selectProfesor(profesor.id_persona)" icon="pi pi-pencil" severity="warning"
+                        class="mr-2" />
+                    <p-button (onClick)="deleteprofesor(profesor.id_persona)" icon="pi pi-times" severity="danger" />
+                </td>
+
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+            <tr>
+                <td colspan="5">No se encontraron profesor.</td>
+            </tr>
+        </ng-template>
+    </p-table>
+
+    <!-- PUT FORM -->
+    <form #formPut="ngForm" (ngSubmit)="putProfesor(selectedProfesor.id_persona)" novalidate>
+        <p-dialog header="Editar profesor" [(visible)]="visible_put" [modal]="true" [style]="{ width: '30rem' }">
+
+            <!-- Nombre -->
+            <div class="mb-3">
+                <label for="nombre">Nombre</label>
+                <input pInputText id="nombre" name="nombre" type="text" [(ngModel)]="selectedProfesor.nombre"
+                    class="w-full" required minlength="2" #nombre="ngModel" [disabled]="true" />
+                <small class="p-error" *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)">
+                    El nombre es requerido (mínimo 2 caracteres).
+                </small>
+            </div>
+
+            <!-- Apellido -->
+            <div class="mb-3">
+                <label for="apellido">Apellido</label>
+                <input pInputText id="apellido" name="apellido" type="text" [(ngModel)]="selectedProfesor.apellido"
+                    class="w-full" required minlength="2" #apellido="ngModel" [disabled]="true" />
+                <small class="p-error" *ngIf="apellido.invalid && (apellido.dirty || apellido.touched)">
+                    El apellido es requerido (mínimo 2 caracteres).
+                </small>
+            </div>
+
+            <!-- Email -->
+            <div class="mb-3">
+                <label for="email">Email</label>
+                <input pInputText id="email" name="email" type="email" [(ngModel)]="selectedProfesor.email"
+                    class="w-full" required email #email="ngModel" [disabled]="true" />
+                <small class="p-error" *ngIf="email.invalid && (email.dirty || email.touched)">
+                    Ingresa un correo válido.
+                </small>
+            </div>
+
+            <!-- Teléfono -->
+            <div class="mb-3">
+                <label for="telefono">Teléfono</label>
+                <input pInputText id="telefono" name="telefono" type="text" [(ngModel)]="selectedProfesor.telefono"
+                    class="w-full" required pattern="^[0-9]{10}$" #telefono="ngModel" [disabled]="true" />
+                <small class="p-error" *ngIf="telefono.invalid && (telefono.dirty || telefono.touched)">
+                    Ingresa un número de 10 dígitos.
+                </small>
+            </div>
+
+            <!-- Fecha de Nacimiento -->
+            <div class="mb-3">
+                <label for="fecha">Fecha de Nacimiento</label>
+                <input pInputText id="fecha" name="fecha_nacimiento" type="date"
+                    [(ngModel)]="selectedProfesor.fecha_nacimiento" class="w-full" required #fecha_nacimiento="ngModel"
+                    [disabled]="true" />
+                <small class="p-error"
+                    *ngIf="fecha_nacimiento.invalid && (fecha_nacimiento.dirty || fecha_nacimiento.touched)">
+                    La fecha es obligatoria.
+                </small>
+            </div>
+
+            <!-- Especialidad -->
+            <div class="mb-3">
+                <label for="especialidad">Especialidad</label>
+                <input pInputText id="especialidad" name="especialidad" type="text"
+                    [(ngModel)]="selectedProfesor.especialidad" class="w-full" required="true"
+                    #especialidad="ngModel" />
+                <small class="p-error" *ngIf="especialidad.invalid && (especialidad.dirty || especialidad.touched)">
+                    Digite la especialidad.
+                </small>
+            </div>
+
+            <!-- Fecha de contratacion-->
+            <div class="mb-3">
+                <label for="fecha_contratacion">Fecha de contratacion</label>
+                <input pInputText id="fecha_contratacion" name="fecha_contratacion" type="date"
+                    [(ngModel)]="selectedProfesor.fecha_contratacion" class="w-full" required required min="1" max="12"
+                    #fecha_contratacion="ngModel" />
+                <small class="p-error"
+                    *ngIf="fecha_contratacion.invalid && (fecha_contratacion.dirty || fecha_contratacion.touched)">
+                    Digite la fecha de contratacion
+                </small>
+            </div>
+
+            <!-- Botones -->
+            <div class="flex justify-content-end gap-2">
+                <p-button label="Cancelar" severity="secondary" (onClick)="visible_put = false" />
+                <p-button label="Guardar" type="submit" [disabled]="formPut.invalid" />
+            </div>
+        </p-dialog>
+    </form>
+
+    <!-- POST FORM -->
+    <form #formPost="ngForm" (ngSubmit)="postprofesor()" novalidate>
+        <p-dialog header="Agregar profesor" [(visible)]="visible_post" [modal]="true" [style]="{ width: '30rem' }">
+
+            <!-- Selector de persona -->
+            <div class="mb-3">
+                <label for="persona">Persona</label>
+                <select id="persona" name="persona" class="w-full p-2 border rounded-md text-gray-700 bg-white"
+                    [(ngModel)]="selectedPersonaId" (ngModelChange)="onPersonaChange($event)" #persona_sel="ngModel"
+                    required>
+                    <option [ngValue]="null" disabled>-- Selecciona una persona --</option>
+                    <option *ngFor="let p of personas" [ngValue]="p.id_persona">
+                        {{ p.id_persona }} - {{ p.nombre }} {{ p.apellido }}
+                    </option>
+                </select>
+                <small class="p-error" *ngIf="persona_sel.invalid && (persona_sel.dirty || persona_sel.touched)">
+                    La persona es requerida.
+                </small>
+            </div>
+
+            <ng-container *ngIf="selectedPersona">
+                <!-- Ahora los campos se muestran como inputs binded -->
+                <div class="mb-3">
+                    <label>Nombre</label>
+                    <input pInputText [value]="profesor_form.nombre" readonly class="w-full" disabled />
+                </div>
+                <div class="mb-3">
+                    <label>Apellido</label>
+                    <input pInputText [value]="profesor_form.apellido" readonly class="w-full" disabled />
+                </div>
+                <div class="mb-3">
+                    <label>Email</label>
+                    <input pInputText [value]="profesor_form.email" readonly class="w-full" disabled />
+                </div>
+                <div class="mb-3">
+                    <label>Contraseña</label>
+                    <input pInputText [value]="profesor_form.password" readonly class="w-full" disabled />
+                </div>
+                <div class="mb-3">
+                    <label>Teléfono</label>
+                    <input pInputText [value]="profesor_form.telefono" readonly class="w-full" disabled />
+                </div>
+                <div class="mb-3">
+                    <label>Fecha de Nacimiento</label>
+                    <input pInputText [value]="(profesor_form.fecha_nacimiento | date:'yyyy-MM-dd')" readonly
+                        class="w-full" disabled />
+                </div>
+
+                <!-- Especialidad -->
+                <div class="mb-3">
+                    <label for="especialidad">Especialidad</label>
+                    <input pInputText id="especialidad" name="especialidad" type="text"
+                        [(ngModel)]="profesor_form.especialidad" class="w-full" required="true"
+                        #especialidad_post="ngModel" />
+                    <small class="p-error"
+                        *ngIf="especialidad_post.invalid && (especialidad_post.dirty || especialidad_post.touched)">
+                        Digite la especialidad.
+                    </small>
+                </div>
+
+                <!-- Fecha de contratación -->
+                <div class="mb-3">
+                    <label for="fecha_contratacion">Fecha de contratacion</label>
+                    <input pInputText id="fecha_contratacion" name="fecha_contratacion" type="date"
+                        [(ngModel)]="profesor_form.fecha_contratacion" class="w-full" required="true"
+                        #fecha_contratacion_post="ngModel" />
+                    <small class="p-error"
+                        *ngIf="fecha_contratacion_post.invalid && (fecha_contratacion_post.dirty || fecha_contratacion_post.touched)">
+                        Digite la fecha de contratacion.
+                    </small>
+                </div>
+
+                <!-- Botones -->
+                <div class="flex justify-content-end gap-2">
+                    <p-button label="Cancelar" severity="secondary" (onClick)="visible_post = false"></p-button>
+                    <p-button label="Guardar" type="submit" [disabled]="formPost.invalid"></p-button>
+                </div>
+            </ng-container>
+        </p-dialog>
+    </form>
+
+
+
+</p-card>

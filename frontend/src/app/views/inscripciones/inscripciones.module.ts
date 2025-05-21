@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { InscripcionesRoutingModule } from './inscripciones-routing.module';
 import { InscripcionesComponent } from './inscripciones.component';
+import { ShareModules } from '../../shared/share.modules';
 
 
 @NgModule({
@@ -11,7 +12,8 @@ import { InscripcionesComponent } from './inscripciones.component';
   ],
   imports: [
     CommonModule,
-    InscripcionesRoutingModule
+    InscripcionesRoutingModule,
+    ShareModules
   ]
 })
 export class InscripcionesModule { }
