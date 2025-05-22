@@ -2,6 +2,9 @@
 
 Este proyecto es una aplicación web para la gestión de estudiantes, profesores, cursos e inscripciones. Está desarrollado con Angular 17 en el frontend y Spring Boot en el backend.
 
+# Documentacion Swagger
+Link: http://localhost:8080/swagger-ui/index.html#/
+
 ## 🚀 Tecnologías Utilizadas
 
 ### 🖥️ Frontend
