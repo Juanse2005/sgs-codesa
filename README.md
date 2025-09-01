@@ -1,9 +1,6 @@
 # 📚 Sistema de Gestión Académica
 
-Este proyecto es una aplicación web para la gestión de estudiantes, profesores, cursos e inscripciones. Está desarrollado con Angular 17 en el frontend y Spring Boot en el backend.
-
-# Documentacion Swagger
-Link: http://localhost:8080/swagger-ui/index.html#/
+Esta prueba técnica consiste en desarrollar un **sistema CRUD para el registro de personas en una escuela**, incluyendo estudiantes, profesores y personal administrativo. El sistema implementa **backend en Java con Spring Boot** y **frontend en Angular**, con un enfoque en buenas prácticas, validaciones, arquitectura en capas y modular.
 
 ## 🚀 Tecnologías Utilizadas
 
@@ -11,21 +8,44 @@ Link: http://localhost:8080/swagger-ui/index.html#/
 - [Angular 17](https://angular.io/)
 - TypeScript
 - PrimeNG
+- Diseño responsivo
+- Formularios con validaciones
+- Paginación y confirmación de eliminación
 
 ### 🛠️ Backend
 - [Spring Boot](https://spring.io/projects/spring-boot)
 - Java 17+
-- Spring Data JPA
+- Spring Data JPA (Desarrollo)
+- Maven
+- JWT
+- ModelMapper (DTOs)
 - H2 Database
+- PostgreSQL (Final)
+- Arquitectura en capas (Controladores, Servicios, Repositorios)
 - Swagger OpenAPI
+- Manejo de logs y excepciones
 
 ---
 
-### ⚙️ Requisitos Previos
+## Funcionalidades
 
-- Node.js 16+ y npm
-- Java 17 o superior
-- Maven
+### Backend
+- CRUD completo para todas las entidades
+- Validaciones de campos obligatorios, emails, teléfonos y fechas
+- Validación de relaciones y unicidad
+- Manejo de excepciones
+- Paginación en listados
+- Autenticación JWT
+
+### Frontend
+- Listados de entidades con paginación
+- Formularios de creación y edición
+- Validaciones en formularios
+- Confirmación de eliminación
+- Comunicación con backend a través de servicios HTTP
+- Diseño responsivo y moderno con Angular Material o PrimeNG
+
+---
 
 ### Instalación
 1. Clonar el repositorio desde Git
@@ -35,11 +55,26 @@ Link: http://localhost:8080/swagger-ui/index.html#/
    'cd backend' o 'cd frontend'
 
 ### ▶️ Iniciar el Backend (Springboot)
-3. Es necesario abrir backend para iniciar la base de datos H2, pasos:
-    1. 'cd backend'
-    2. ./mvnw spring-boot:run // O iniciar proyecto
+1. Sigue los pasos:
+    1. Entrar al directorio del backend:
+      'cd backend'
 
+    2. Construir el proyecto con Maven:
+       mvn clean install
+    
+    3. Ejecutar la aplicación:
+      ./mvnw spring-boot:run // O iniciar proyecto
+    
+    4. Acceder a Swagger
+       http://localhost:8080/swagger-ui.html
+       
 ### ▶️ Iniciar Frontend (Angular)
-6. Abrir carpeta frontend 'cd frontend' y ejecutar en el terminal:
-    1. npm install      # Para instalar dependencias
-    2. ng serve --o  # Para abrir el frontend en una nueva pestaña
+1. sigue los pasos:
+    1. Entrar al directorio del frontend:
+       cd frontend
+    
+    2. Instalar dependencias:
+       npm install
+    
+    3. Ejecutar la aplicación:
+       ng serve --o  # Para abrir el frontend en una nueva pestaña
