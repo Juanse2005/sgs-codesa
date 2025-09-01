@@ -126,8 +126,8 @@ export class InscripcionesComponent {
           this.visible_post = false;
           this.inscripcion_form = {} as Inscripcion;
         },
-        error: () => {
-          this.ErrorToast('Error al crear inscripción');
+        error: (err) => {
+          this.ErrorToast(err.error.message || 'Error al crear inscripción');
         },
       });
   }

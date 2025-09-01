@@ -68,6 +68,12 @@ public class InscripcionService {
 
         Curso curso = cursoRepository.findById(input.getId_curso())
                 .orElseThrow(() -> new ResourceNotFoundException("Curso no encontrado"));
+        
+        //Valida si el estudiante ya está inscrito en el curso
+        if (inscripcionRepository.existsByEstudianteAndCurso(estudiante, curso)) {
+                throw new IllegalArgumentException("El estudiante ya está inscrito en este curso");
+            }
+
 
         Inscripcion ins = new Inscripcion();
         ins.setEstudiante(estudiante);
