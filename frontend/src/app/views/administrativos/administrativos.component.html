@@ -1,5 +1,5 @@
 <p-card header="Lista de administrativos">
-    <p-table #dt [value]="administrativo" dataKey="id_administrativo" [rows]="5" [paginator]="true" [lazy]="true" [totalRecords]="totalRecords" 
+    <p-table #dt [value]="administrativo" dataKey="id_administrativo" [rows]="5" [paginator]="true" [totalRecords]="totalRecords" 
         (onLazyLoad)="getAllAdministrativo($event)" [loading]="loading" [globalFilterFields]="['nombre', 'apellido', 'email']"
         [responsiveLayout]="'scroll'">
 

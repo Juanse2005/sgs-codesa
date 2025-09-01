@@ -1,5 +1,5 @@
 <p-card header="Lista de profesores">
-    <p-table #dt [value]="profesor" dataKey="id_profesor" [rows]="5" [paginator]="true" [lazy]="true" [totalRecords]="totalRecords" 
+    <p-table #dt [value]="profesor" dataKey="id_profesor" [rows]="5" [paginator]="true" [totalRecords]="totalRecords" 
     (onLazyLoad)="getAllProfesor($event)" [loading]="loading" [globalFilterFields]="['nombre', 'apellido', 'email']"
     [responsiveLayout]="'scroll'">
 

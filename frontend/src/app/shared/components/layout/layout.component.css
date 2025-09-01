@@ -34,8 +34,9 @@
 
 .topbar-actions {
   display: flex;
+  justify-content: center;
   align-items: center;
-  gap: 1rem;
+  gap: 1rem;  
 }
 
 .main-layout {
@@ -98,6 +99,9 @@
   }
   
   .topbar-actions {
-    gap: 0.5rem;
+    gap: 1rem;
+  }
+  .system-title {
+    font-size: 10px;
   }
 }
