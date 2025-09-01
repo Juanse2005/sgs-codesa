@@ -1,6 +1,9 @@
-# 📚 Sistema de Gestión Académica
+# <img src="frontend/src/assets/logo.png" alt="Demo" width="70"/> Sistema de Gestión Académica
 
 Esta prueba técnica consiste en desarrollar un **sistema CRUD para el registro de personas en una escuela**, incluyendo estudiantes, profesores y personal administrativo. El sistema implementa **backend en Java con Spring Boot** y **frontend en Angular**, con un enfoque en buenas prácticas, validaciones, arquitectura en capas y modular.
+
+Para entender el funcionamiento te recomiendo ver el manual de usuario:
+[Manual del Usuario Click Aqui](manual-usuario/Manual-de-usuario-SGE-CODESA.pdf)
 
 ## 🚀 Tecnologías Utilizadas
 
@@ -25,7 +28,10 @@ Esta prueba técnica consiste en desarrollar un **sistema CRUD para el registro 
 - Swagger OpenAPI
 - Manejo de logs y excepciones
 
----
+
+### Diagrama de relaciones
+<img src="database/Modelo-relacional.png" alt="Demo" width="500"/>
+
 
 ## Funcionalidades
 
@@ -33,9 +39,13 @@ Esta prueba técnica consiste en desarrollar un **sistema CRUD para el registro 
 - CRUD completo para todas las entidades
 - Validaciones de campos obligatorios, emails, teléfonos y fechas
 - Validación de relaciones y unicidad
-- Manejo de excepciones
+- Manejo de excepciones logs
 - Paginación en listados
 - Autenticación JWT
+- Contador total de personas, estudiantes, profesores y administradores
+- Validación de datos duplicados (evita que la misma persona se registre en varios roles o se duplique en la misma entidad)
+- Validacion de EMAIL para datos duplicados
+- Creado en base a arquitectura por capas, con etidades y dtos, servicios, controladores, repositorios y excepciones 
 
 ### Frontend
 - Listados de entidades con paginación
@@ -44,6 +54,10 @@ Esta prueba técnica consiste en desarrollar un **sistema CRUD para el registro 
 - Confirmación de eliminación
 - Comunicación con backend a través de servicios HTTP
 - Diseño responsivo y moderno con Angular Material o PrimeNG
+- Barra de busqueda y paginacion en las tablas
+- Visualización de graficos y estadisticas
+- Manejo de token, rutas protegidas y sesion local
+- Confirmacion de eliminación
 
 ---
 
