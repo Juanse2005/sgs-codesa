@@ -15,9 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.codesa.backend.dto.CountDTO;
 import com.codesa.backend.dto.CreateEstudianteDTO;
 import com.codesa.backend.dto.EstudianteDTO;
-import com.codesa.backend.entity.Estudiante;
 import com.codesa.backend.service.EstudianteService;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -69,5 +69,12 @@ public class EstudiantesController {
     public ResponseEntity<Void> eliminar(@PathVariable Long id) {
         estudianteService.delete(id);
         return ResponseEntity.noContent().build();
+    }
+
+      @GetMapping("/count")
+    public ResponseEntity<CountDTO> obtenerConteo() {
+        long total = estudianteService.countAll();
+        CountDTO response = new CountDTO(total);
+        return ResponseEntity.ok(response);
     }
 }

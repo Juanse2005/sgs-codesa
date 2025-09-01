@@ -13,6 +13,13 @@ import com.codesa.backend.security.JwtUtil;
 
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * Servicio que maneja la autenticación y registro de usuarios.
+ * Proporciona métodos para iniciar sesión y registrar nuevos usuarios,
+ * utilizando {@link PersonaRepository} para acceder a los datos, 
+ * {@link ModelMapper} para mapear DTOs a entidades, y {@link JwtUtil} para generar tokens JWT.
+ */
+
 @Service
 @Slf4j
 public class AuthService {
@@ -26,6 +33,13 @@ public class AuthService {
     @Autowired
     private JwtUtil jwtUtil;
 
+    /**
+     * Realiza el proceso de inicio de sesión de un usuario.
+     *
+     * @param request Objeto {@link LoginRequest} que contiene el email y la contraseña del usuario.
+     * @return {@link AuthResponse} que incluye nombre, apellido, email y token JWT generado.
+     * @throws IllegalArgumentException si el email no está registrado o la contraseña es incorrecta.
+     */
     public AuthResponse login(LoginRequest request) {
         log.info("Intentando login con email {}", request.getEmail());
 
@@ -37,9 +51,16 @@ public class AuthService {
         }
 
         String token = jwtUtil.generateToken(persona.getEmail());
-        return new AuthResponse(persona.getEmail(), token);
+        return new AuthResponse(persona.getNombre(),persona.getApellido(),persona.getEmail(), token);
     }
 
+    /**
+     * Registra un nuevo usuario en el sistema.
+     *
+     * @param request Objeto {@link RegisterRequest} que contiene los datos necesarios para crear la persona.
+     * @return {@link AuthResponse} que incluye nombre, apellido, email y token JWT generado.
+     * @throws IllegalArgumentException si el email ya está registrado.
+     */    
     public AuthResponse register(RegisterRequest request) {
         log.info("Creando persona con email {}", request.getEmail());
 
@@ -52,6 +73,6 @@ public class AuthService {
 
         String token = jwtUtil.generateToken(guardada.getEmail());
 
-        return new AuthResponse(guardada.getEmail(), token);
+        return new AuthResponse(guardada.getNombre(),guardada.getApellido(),guardada.getEmail(), token);
     }
 }

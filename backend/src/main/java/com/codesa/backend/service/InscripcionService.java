@@ -13,7 +13,6 @@ import com.codesa.backend.repository.InscripcionRepository;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.data.domain.Page;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,15 +30,23 @@ public class InscripcionService {
     @Autowired
     private CursoRepository cursoRepository;
 
-    @Autowired
-    private ModelMapper modelMapper;
-
+    /**
+     * Obtiene todas las Inscripciones paginados.
+     * @param pageable Objeto {@link Pageable} para controlar la paginación.
+     */
     public Page<InscripcionDTO> getAll(Pageable pageable) {
         log.info("Obteniendo todas las personas");
-        return inscripcionRepository.findAll(pageable)
+        return inscripcionRepository.findAllOrderedById(pageable)
                 .map(this::toDTO);
     }
 
+    /**
+     * Obtiene un Inscripcion por su ID.
+     *
+     * @param id ID del Inscripcion.
+     * @return {@link InscripcionDTO} correspondiente al ID proporcionado.
+     * @throws ResourceNotFoundException si no se encuentra el Inscripcion.
+     */
     public InscripcionDTO getById(Long id) {
         log.info("Obteniendo persona con ID {}", id);
         Inscripcion inscripcion = inscripcionRepository.findById(id)
@@ -47,6 +54,12 @@ public class InscripcionService {
         return toDTO(inscripcion);
     }
 
+    /**
+     * Crea una nueva Inscripcion.
+     *
+     * @param input DTO {@link CreateInscripcionDTO} con los datos de la Inscripcion.
+     * @return {@link InscripcionDTO} creado.
+     */
     public InscripcionDTO create(CreateInscripcionDTO input) {
         log.info("Creando inscripción");
 
@@ -66,6 +79,13 @@ public class InscripcionService {
         return toDTO(saved);
     }
 
+    /**
+     * Actualiza una Inscripcion existente.
+     *
+     * @param id    ID de la Inscripcion a actualizar.
+     * @param input DTO {@link CreateInscripcionDTO} con los nuevos datos.
+     * @throws ResourceNotFoundException si no se encuentra el Inscripcion o la persona.
+     */
     public InscripcionDTO update(Long id, CreateInscripcionDTO input) {
         log.info("Actualizando inscripcion con ID {}", id);
 
@@ -88,6 +108,12 @@ public class InscripcionService {
         return toDTO(updated);
     }
 
+    /**
+     * Elimina una inscripcion por su ID.
+     *
+     * @param id ID de la inscripcion a eliminar.
+     * @throws ResourceNotFoundException si no se encuentra la inscripcion.
+     */
     public void delete(Long id) {
         log.warn("Eliminando inscripcion con ID {}", id);
 
@@ -96,6 +122,9 @@ public class InscripcionService {
         inscripcionRepository.delete(inscripcion);
     }
 
+    /**
+     * Convierte una entidad {@link Inscripcion} a {@link InscripcionDTO}.
+     */
     private InscripcionDTO toDTO(Inscripcion ins) {
         InscripcionDTO dto = new InscripcionDTO();
         dto.setId_inscripcion(ins.getId_inscripcion());
@@ -106,4 +135,16 @@ public class InscripcionService {
         dto.setFecha_inscripcion(ins.getFecha_inscripcion());
         return dto;
     }
+
+    /**
+     * Cuenta el total de Inscripciones registrados.
+     *
+     * @return Número total de Inscripciones.
+     */
+        public long countAll() {
+        log.info("Contando todos las inscripciones");
+            long count = cursoRepository.count();
+        log.info("Total de inscripciones: {}", count);
+    return count;
+}
 }

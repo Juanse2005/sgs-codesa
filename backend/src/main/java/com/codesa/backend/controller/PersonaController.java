@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.codesa.backend.dto.CountDTO;
 import com.codesa.backend.dto.PersonaDTO;
 import com.codesa.backend.service.PersonaService;
 
@@ -65,4 +66,12 @@ public class PersonaController {
         personaService.delete(id);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/count")
+    public ResponseEntity<CountDTO> obtenerConteo() {
+        long total = personaService.countAll();
+        CountDTO response = new CountDTO(total);
+        return ResponseEntity.ok(response);
+    }
+
 }

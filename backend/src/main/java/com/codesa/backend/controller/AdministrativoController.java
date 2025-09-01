@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.codesa.backend.dto.AdministrativoDTO;
+import com.codesa.backend.dto.CountDTO;
 import com.codesa.backend.dto.CreateAdministrativoDTO;
-import com.codesa.backend.dto.EstudianteDTO;
 import com.codesa.backend.service.AdministrativoService;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -70,5 +70,12 @@ public class AdministrativoController {
     public ResponseEntity<Void> eliminar(@PathVariable Long id) {
         administrativoService.delete(id);
         return ResponseEntity.noContent().build();
+    }
+    
+    @GetMapping("/count")
+    public ResponseEntity<CountDTO> obtenerConteo() {
+        long total = administrativoService.countAll();
+        CountDTO response = new CountDTO(total);
+        return ResponseEntity.ok(response);
     }
 }

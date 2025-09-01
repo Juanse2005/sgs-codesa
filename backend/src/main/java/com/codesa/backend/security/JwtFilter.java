@@ -4,19 +4,22 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
-
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 
+import javax.crypto.SecretKey;
 import java.io.IOException;
 
 public class JwtFilter extends OncePerRequestFilter {
 
-    private final String SECRET_KEY = "mySecretKey";
+    private final SecretKey secretKey;
+
+    public JwtFilter(SecretKey secretKey) {
+        this.secretKey = secretKey;
+    }
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
@@ -27,8 +30,9 @@ public class JwtFilter extends OncePerRequestFilter {
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
             String token = authHeader.substring(7);
             try {
-                Claims claims = Jwts.parser()
-                        .setSigningKey(SECRET_KEY)
+                Claims claims = Jwts.parserBuilder()
+                        .setSigningKey(secretKey)
+                        .build()
                         .parseClaimsJws(token)
                         .getBody();
 

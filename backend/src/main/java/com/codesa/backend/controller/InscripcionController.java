@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.codesa.backend.dto.CountDTO;
 import com.codesa.backend.dto.CreateInscripcionDTO;
-import com.codesa.backend.dto.EstudianteDTO;
 import com.codesa.backend.dto.InscripcionDTO;
 import com.codesa.backend.service.InscripcionService;
 
@@ -69,5 +69,12 @@ public class InscripcionController {
     public ResponseEntity<Void> eliminar(@PathVariable Long id) {
         inscripcionService.delete(id);
         return ResponseEntity.noContent().build();
+    }
+
+      @GetMapping("/count")
+    public ResponseEntity<CountDTO> obtenerConteo() {
+        long total = inscripcionService.countAll();
+        CountDTO response = new CountDTO(total);
+        return ResponseEntity.ok(response);
     }
 }

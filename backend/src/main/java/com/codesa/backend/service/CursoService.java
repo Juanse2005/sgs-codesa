@@ -2,20 +2,16 @@ package com.codesa.backend.service;
 
 import com.codesa.backend.dto.CreateCursoDTO;
 import com.codesa.backend.dto.CursoDTO;
-import com.codesa.backend.dto.EstudianteDTO;
 import com.codesa.backend.entity.Curso;
-import com.codesa.backend.entity.Estudiante;
 import com.codesa.backend.entity.Persona;
 import com.codesa.backend.entity.Profesor;
 import com.codesa.backend.exception.ResourceNotFoundException;
 import com.codesa.backend.repository.CursoRepository;
-import com.codesa.backend.repository.PersonaRepository;
 import com.codesa.backend.repository.ProfesorRepository;
 
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.data.domain.Page;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,15 +26,23 @@ public class CursoService {
     @Autowired
     private ProfesorRepository profesorRepository;
 
-    @Autowired
-    private ModelMapper modelMapper;
-
+    /**
+     * Obtiene todos los cursos paginados.
+     * @param pageable Objeto {@link Pageable} para controlar la paginación.
+     */
     public Page<CursoDTO> getAll(Pageable pageable) {
         log.info("Obteniendo todas las personas");
-        return cursoRepository.findAll(pageable)
+        return cursoRepository.findAllOrderedById(pageable)
                 .map(this::toDTO);
     }
 
+    /**
+     * Obtiene un curso por su ID.
+     *
+     * @param id ID del Curso.
+     * @return {@link CursoDTO} correspondiente al ID proporcionado.
+     * @throws ResourceNotFoundException si no se encuentra el Curso.
+     */
     public CursoDTO getById(Long id) {
         log.info("Obteniendo persona con ID {}", id);
         Curso curso = cursoRepository.findById(id)
@@ -46,6 +50,9 @@ public class CursoService {
         return toDTO(curso);
     }
 
+    /**
+     * Crea un nuevo curso.
+     */
     public CursoDTO create(CreateCursoDTO input) {
         log.info("Creando curso");
 
@@ -63,6 +70,13 @@ public class CursoService {
         return toDTO(saved);
     }
 
+    /**
+     * Actualiza un Curso existente.
+     *
+     * @param id    ID del Curso a actualizar.
+     * @param input DTO {@link CreateCursoDTO} con los nuevos datos.
+     * @throws ResourceNotFoundException si no se encuentra el Curso o el profesor.
+     */
     public CursoDTO update(Long id, CreateCursoDTO input) {
         log.info("Actualizando curso con ID {}", id);
 
@@ -80,6 +94,12 @@ public class CursoService {
         return toDTO(curso);
     }
 
+    /**
+     * Elimina un curso por su ID.
+     *
+     * @param id ID del curso a eliminar.
+     * @throws ResourceNotFoundException si no se encuentra el curso.
+     */
     public void delete(Long id) {
         log.warn("Eliminando curso con ID {}", id);
 
@@ -88,6 +108,9 @@ public class CursoService {
         cursoRepository.delete(curso);
     }
 
+    /**
+     * Convierte una entidad {@link Curso} a {@link CursoDTO}.
+     */
     private CursoDTO toDTO(Curso curso) {
         Profesor profesor = curso.getProfesor();
         Persona persona = profesor.getPersona();
@@ -114,5 +137,18 @@ public class CursoService {
 
         return dto;
     }
+
+    /**
+     * Cuenta el total de cursos registrados.
+     *
+     * @return Número total de cursos.
+     */
+        public long countAll() {
+        log.info("Contando todos los cursos");
+            long count = cursoRepository.count();
+        log.info("Total de cursos: {}", count);
+    return count;
+}
+
 
 }
