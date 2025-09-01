@@ -2,9 +2,51 @@
   <header class="topbar">
     <div class="topbar-logo">
       <img src="assets/icon.png" alt="Logo" />
-      <span class="system-title">Sistema de Gestión Escolar</span>
+      <span class="system-title">SISTEMA DE GESTION ESCOLAR</span>
     </div>
-    <button class="menu-toggle" (click)="toggleSidebar()">☰</button>
+
+    <div class="topbar-actions">
+      <p-button (onClick)="showDialog()" icon="pi pi-user" [label]="(user?.nombre + ' ' + user?.apellido || 'Usuario')| uppercase"/>
+
+      <button class="menu-toggle" (click)="toggleSidebar()">☰</button>
+    </div>
+    
+    <p-dialog
+      header="Header"
+      [(visible)]="visible"
+      [modal]="true"
+      [style]="{ width: '25rem' }"
+      [draggable]="false"
+      [resizable]="false"
+    >
+      <ng-template pTemplate="header">
+        <div
+          class="inline-flex align-items-center justify-content-center gap-2"
+        >
+          <p-avatar
+            image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png"
+            shape="circle"
+          />
+          <span class="font-bold uppercase white-space-nowrap" id="name">{{user.nombre + ' ' + user.apellido}}</span>
+        </div>
+      </ng-template>
+      <ng-template pTemplate="footer">
+        <p-button
+          label="Cancelar"
+          [text]="true"
+          severity="secondary"
+          icon="pi pi-times"
+          (onClick)="visible = false"
+        />
+        <p-button
+          label="Salir"
+          [outlined]="true"
+          severity="danger"
+          icon="pi pi-sign-out"
+          (onClick)="logOut()"
+        />
+      </ng-template>
+    </p-dialog>
   </header>
 
   <div class="main-layout" [class.sidebar-collapsed]="sidebarCollapsed">
@@ -12,8 +54,8 @@
       <p-panelMenu [model]="items"></p-panelMenu>
     </aside>
 
-    <main class="main-content">
-      <router-outlet></router-outlet>
+    <main class="main-content" [@routeAnimations]="prepareRoute(outlet)">
+      <router-outlet #outlet="outlet"></router-outlet>
     </main>
   </div>
 </div>

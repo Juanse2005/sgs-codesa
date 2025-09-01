@@ -1,7 +1,7 @@
-<p-card header="Inscripción">
-    <p-table #dt [value]="inscripcion" dataKey="id_inscripcion" [rows]="10" [paginator]="true"
-        [rowsPerPageOptions]="[10, 25, 50]" [loading]="loading" [responsiveLayout]="'scroll'"
-        [globalFilterFields]="['id_inscripcion', 'id_estudiante', 'id_curso', 'fecha_inscripcion']">
+<p-card header="Lista de inscripciones">
+    <p-table #dt [value]="inscripcion" dataKey="id_inscripcion" [rows]="10" [paginator]="true" [lazy]="true" [totalRecords]="totalRecords" 
+    (onLazyLoad)="getInscripciones($event)" [loading]="loading" [globalFilterFields]="['id_inscripcion', 'id_estudiante', 'id_curso', 'fecha_inscripcion']"
+    [responsiveLayout]="'scroll'">
 
         <!-- CAPTION -->
         <ng-template pTemplate="caption">

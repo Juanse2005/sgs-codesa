@@ -1,7 +1,7 @@
-<p-card header="Estudiantes">
-    <p-table #dt [value]="estudiantes" dataKey="id_estudiante" [rows]="10" [paginator]="true"
-        [responsiveLayout]="'scroll'" [rowsPerPageOptions]="[10, 25, 50]" [loading]="loading"
-        [globalFilterFields]="['nombre', 'apellido', 'email']">
+<p-card header="Lista de estudiantes">
+    <p-table #dt [value]="estudiantes" dataKey="id_estudiante" [rows]="50" [paginator]="true" [lazy]="true" [totalRecords]="totalRecords" 
+    (onLazyLoad)="getAllEstudiantes($event)" [loading]="loading" [globalFilterFields]="['nombre', 'apellido', 'email']"
+    [responsiveLayout]="'scroll'" >
 
         <ng-template pTemplate="caption">
             <div class="flex flex-wrap gap-2 justify-content-between align-items-center">
@@ -67,7 +67,7 @@
                 <td>
                     {{ estudiante.grado }}
                 <td>
-                    <p-button (onClick)="selectestudiante(estudiante.id_persona)" icon="pi pi-pencil" severity="warning"
+                    <p-button (onClick)="selectEstudiante(estudiante.id_persona)" icon="pi pi-pencil" severity="warning"
                         class="mr-2" />
                     <p-button (onClick)="confirmDelete(estudiante.id_persona)" icon="pi pi-times"
                         severity="danger" />
@@ -83,7 +83,7 @@
     </p-table>
 
     <!-- PUT FORM -->
-    <form #formPut="ngForm" (ngSubmit)="putestudiante(selectedEstudiante.id_persona)" novalidate>
+    <form #formPut="ngForm" (ngSubmit)="putEstudiante(selectedEstudiante.id_persona)" novalidate>
         <p-dialog header="Editar estudiante" [(visible)]="visible_put" [modal]="true" [style]="{ width: '30rem' }">
 
             <!-- Nombre -->
@@ -169,7 +169,7 @@
     </form>
 
     <!-- POST FORM -->
-    <form #formPost="ngForm" (ngSubmit)="postestudiante()" novalidate>
+    <form #formPost="ngForm" (ngSubmit)="postEstudiante()" novalidate>
         <p-dialog header="Agregar estudiante" [(visible)]="visible_post" [modal]="true" [style]="{ width: '30rem' }">
 
             <div class="mb-3">

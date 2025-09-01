@@ -17,8 +17,16 @@ import { ToastModule } from 'primeng/toast';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { ChartModule } from 'primeng/chart';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { CalendarModule } from 'primeng/calendar';
+import { SplitButtonModule } from 'primeng/splitbutton';
+import { AvatarModule } from 'primeng/avatar';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
-
+/** 
+ * Módulo compartido que agrupa los módulos de PrimeNG utilizados en la aplicación.
+ * Cada módulo importado aquí puede ser utilizado en cualquier componente que importe 
+ * este módulo compartido.
+ */
 @NgModule({
     imports: [
         ButtonModule,
@@ -39,6 +47,10 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
         InputTextareaModule,
         ChartModule,
         ConfirmDialogModule,
+        CalendarModule,
+        SplitButtonModule,
+        AvatarModule,
+        ProgressSpinnerModule 
     ],
     exports: [
         ButtonModule,
@@ -56,7 +68,11 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
         DropdownModule,
         InputTextareaModule,
         ChartModule,
-        ConfirmDialogModule
+        ConfirmDialogModule,
+        CalendarModule,
+        SplitButtonModule,
+        AvatarModule,
+        ProgressSpinnerModule 
     ],
 })
 

@@ -2,12 +2,14 @@
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  background-color: #f9f9f9;
+  background-color: #ffffff;
 }
 
 .topbar {
-  display: flex;
+  display: grid;
   align-items: center;
+  grid-template-columns: 1fr auto auto;
+  gap: 1rem;
   background-color: #ffffff;
   height: 70px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -27,7 +29,13 @@
 .system-title {
   font-size: 1.5rem;
   font-weight: bold;
-  color: #00acc9;
+  color: #1b53b0;
+}
+
+.topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 }
 
 .main-layout {
@@ -37,7 +45,6 @@
 
 .sidebar {
   width: 250px;
-  background-color: #f4f6f8;
   padding: 1rem;
   box-shadow: 2px 0 6px rgba(0, 0, 0, 0.05);
 }
@@ -46,7 +53,7 @@
   flex: 1;
   padding: 2rem;
   overflow-y: auto;
-  background-color: #ffffff;
+  background-color: #f4f6f8;
 }
 
 .menu-toggle {
@@ -55,27 +62,42 @@
   background: none;
   border: none;
   cursor: pointer;
-  margin-left: auto;
   color: #00acc9;
 }
 
-/* Mostrar toggle en pantallas pequeñas */
+
+.p-avatar {
+  width: 50px;
+  height: 50px;
+}
+#name {
+  font-size: 20px;
+  font-weight: bold;
+}
+
 @media (max-width: 768px) {
   .menu-toggle {
     display: block;
   }
-
+  
   .main-layout {
     flex-direction: column;
   }
-
+  
   .sidebar {
     width: 100%;
     box-shadow: none;
   }
-
+  
   .main-content {
     padding: 1rem;
   }
+  
+  .topbar {
+    grid-template-columns: auto 1fr auto;
+  }
+  
+  .topbar-actions {
+    gap: 0.5rem;
+  }
 }
-

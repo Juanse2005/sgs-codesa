@@ -1,13 +1,6 @@
-<p-card header="Curso">
-  <p-table #dt [value]="cursos" dataKey="id_curso" [rows]="10" [paginator]="true" [rowsPerPageOptions]="[10,25,50]"
-    [loading]="loading" [globalFilterFields]="[
-      'id_curso',
-      'nombre',
-      'descripcion',
-      'creditos',
-      'especialidad',
-      'apellido',
-      'email'
+<p-card header="Lista de cursos">
+  <p-table #dt [value]="cursos" dataKey="id_curso" [rows]="5" [paginator]="true" [totalRecords]="totalRecords" 
+    (onLazyLoad)="getAllCursos($event)" [loading]="loading" [globalFilterFields]="['id_curso','nombre','descripcion','creditos','especialidad','apellido','email'
     ]" [responsiveLayout]="'scroll'">
 
     <ng-template pTemplate="caption">

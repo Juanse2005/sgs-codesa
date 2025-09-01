@@ -5,18 +5,24 @@
     <form #form="ngForm" (ngSubmit)="login()">
       <div class="p-field p-fluid mb-4">
         <p-floatLabel>
-          <input pInputText id="email" name="email" [(ngModel)]="email" required />
+          <input pInputText id="email" name="email" [(ngModel)]="email" required email #email_login="ngModel" />
           <label for="email">Email</label>
         </p-floatLabel>
+        <small class="p-error" *ngIf="email_login.invalid && (email_login.dirty || email_login.touched)">
+          Ingresa un email válido.
+        </small>
       </div>
 
       <div class="p-field p-fluid p-mt-3 mb-3">
         <p-floatLabel>
-          <input pInputText type="password" id="password" name="password" [(ngModel)]="password" required />
+          <input pInputText type="password" id="password" name="password" [(ngModel)]="password" required minlength="6" #password_login="ngModel"  />
           <label for="password">Contraseña</label>
         </p-floatLabel>
+        <small class="p-error" *ngIf="password_login.invalid && (password_login.dirty || password_login.touched)">
+  La contraseña es obligatoria (mínimo 6 caracteres)
+</small>
       </div>
-      <p>No cuentas con una cuenta? <a style="text-decoration: underline" (click)="visible_post = true">Regístrate</a>
+      <p>¿Aún no estas registrado? <a style="text-decoration: underline" (click)="visible_post = true">Click aquí</a>
       </p>
 
       <div class="flex mb-3 align-items-center justify-content-center">
@@ -106,3 +112,5 @@
     </div>
   </p-dialog>
 </form>
+
+<app-footer></app-footer>

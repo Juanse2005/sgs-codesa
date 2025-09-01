@@ -1,3 +1,59 @@
 <p-card header="Estadisticas de hoy">
-    <p-chart type="line" [data]="data" [options]="options" />
+  <div class="stadistics-today-container">
+    <p-card
+      header="Estudiantes activos"
+      [style]="{
+        'background-color': '#5196f5',
+        color: 'white',
+      }"
+    >
+      <i class="pi pi-user" style="font-size: 2rem"></i>
+      <span>Total de Estudiantes activos: {{ total_estudiantes }}</span>
+    </p-card>
+    <p-card
+      header="Profesores activos"
+      [style]="{
+        'background-color': '#e5eef7',
+      }"
+    >
+      <i class="pi pi-user" style="font-size: 2rem"></i>
+      <span>Total de Profesores activos: {{ total_profesores }}</span>
+    </p-card>
+    <p-card
+      header="Cursos activos"
+      [style]="{
+        'background-color': '#fcc14d',
+        color: 'white',
+      }"
+    >
+      <i class="pi pi-graduation-cap" style="font-size: 2rem"></i>
+      <span>Total de Cursos activos: {{ total_cursos }}</span>
+    </p-card>
+    <p-card
+      header="Inscripciones activas"
+      [style]="{
+        'background-color': '#4acf98',
+        color: 'white',
+      }"
+    >
+      <i class="pi pi-clipboard" style="font-size: 2rem"></i>
+      <span>Total de inscripciones activas: {{ total_inscripciones }}</span>
+    </p-card>
+  </div>
 </p-card>
+
+
+<div class="chart-container">
+  <p-card
+    header="Grafico de estadisticas"
+    [style]="{ 'background-color': '#f4f6f8' }"
+  >
+    <p-chart type="line" [data]="data" [options]="options" />
+  </p-card>
+  <p-card
+    header="Eventos del mes"
+    [style]="{ 'background-color': '#3b82f6', color: 'white' }"
+  >
+    <p-calendar class="max-w-full" [inline]="true" [showWeek]="true" />
+  </p-card>
+</div>

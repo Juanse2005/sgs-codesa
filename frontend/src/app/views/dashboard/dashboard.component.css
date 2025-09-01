@@ -1,1 +1,33 @@
+.chart-container {
+  margin-top: 1rem;
+  display: grid;
+  justify-content: center;
+  align-items: stretch;
+  
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+.stadistics-today-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  justify-content: center;
+  align-items: stretch;
+  gap: 1rem;
+}
 
+p-card {
+  width: 100%;
+  min-height: 5rem;
+}
+
+p-calendar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (max-width: 768px) {
+  .stadistics-today-container {
+    grid-template-columns: 1fr;
+  }
+}
